@@ -1,26 +1,57 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+This is a demo to illustrate IonicPage DeepLinking bug (https://github.com/ionic-team/ionic-app-scripts/issues/848).
 
-## How to use this template
+At this time, it's not possible to navigate with deeplinking nor to call the PageModule with `navCtrl.push`.
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+- Navigating with an URI: `http://localhost/#/navigation`:
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
-
-### With the Ionic CLI:
-
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myBlank blank
+```js
+    core.es5.js:1084 ERROR Error: Uncaught (in promise): invalid views to insert
+        at c (polyfills.js:3)
+        at Object.reject (polyfills.js:3)
+        at NavControllerBase._fireError (nav-controller-base.js:320)
+        at NavControllerBase._failed (nav-controller-base.js:308)
+        at nav-controller-base.js:363
+        at t.invoke (polyfills.js:3)
+        at Object.onInvoke (core.es5.js:4149)
+        at t.invoke (polyfills.js:3)
+        at r.run (polyfills.js:3)
+        at polyfills.js:3
 ```
 
-Then, to run it, cd into `myBlank` and run:
+- Pushing the module using `this.navCtrl.push('navigation')`:
 
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
+```js
+   core.es5.js:1084 ERROR Error: Uncaught (in promise): TypeError: undefined is not a function
+    TypeError: undefined is not a function
+        at Array.map (native)
+        at webpackAsyncContext (https://localhost/build/main.js:74253:34)
+        at loadAndCompile (https://localhost/build/main.js:73415:36)
+        at NgModuleLoader.load (https://localhost/build/main.js:73380:83)
+        at ModuleLoader.load (https://localhost/build/main.js:55510:44)
+        at DeepLinker.getNavLinkComponent (https://localhost/build/main.js:20466:39)
+        at DeepLinker.getComponentFromName (https://localhost/build/main.js:20449:25)
+        at getComponent (https://localhost/build/main.js:29687:23)
+        at convertToView (https://localhost/build/main.js:29705:16)
+        at convertToViews (https://localhost/build/main.js:29724:32)
+        at Array.map (native)
+        at webpackAsyncContext (https://localhost/build/main.js:74253:34)
+        at loadAndCompile (https://localhost/build/main.js:73415:36)
+        at NgModuleLoader.load (https://localhost/build/main.js:73380:83)
+        at ModuleLoader.load (https://localhost/build/main.js:55510:44)
+        at DeepLinker.getNavLinkComponent (https://localhost/build/main.js:20466:39)
+        at DeepLinker.getComponentFromName (https://localhost/build/main.js:20449:25)
+        at getComponent (https://localhost/build/main.js:29687:23)
+        at convertToView (https://localhost/build/main.js:29705:16)
+        at convertToViews (https://localhost/build/main.js:29724:32)
+        at c (https://localhost/build/polyfills.js:3:13535)
+        at Object.reject (https://localhost/build/polyfills.js:3:12891)
+        at NavControllerBase._fireError (https://localhost/build/main.js:44060:16)
+        at NavControllerBase._failed (https://localhost/build/main.js:44048:14)
+        at https://localhost/build/main.js:44103:59
+        at t.invoke (https://localhost/build/polyfills.js:3:9283)
+        at Object.onInvoke (https://localhost/build/main.js:4427:37)
+        at t.invoke (https://localhost/build/polyfills.js:3:9223)
+        at r.run (https://localhost/build/polyfills.js:3:4452)
+        at https://localhost/build/polyfills.js:3:14076
 ```
-
-Substitute ios for android if not on a Mac.
 
