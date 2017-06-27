@@ -55,3 +55,9 @@ At this time, it's not possible to navigate with deeplinking nor to call the Pag
         at https://localhost/build/polyfills.js:3:14076
 ```
 
+Versions:
+- _npm_: `3.10.10`
+- _node_: `v6.11.0`
+- _ionic_: `3.4.0`
+- _cli-utils_: `1.4.0`
+- _cli-scripts_: `0.2.0`
